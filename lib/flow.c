@@ -1734,7 +1734,7 @@ flow_hash_symmetric_l4(const struct flow *flow, uint32_t basis)
     if (fields.eth_type == htons(ETH_TYPE_IP)) {
         fields.ipv4_addr = flow->nw_src ^ flow->nw_dst;
         fields.ip_proto = flow->nw_proto;
-        if (fields.ip_proto == IPPROTO_TCP || fields.ip_proto == IPPROTO_SCTP) {
+        if (fields.ip_proto == IPPROTO_TCP || fields.ip_proto == IPPROTO_UDP || fields.ip_proto == IPPROTO_SCTP) {
             fields.tp_port = flow->tp_src ^ flow->tp_dst;
         }
     } else if (fields.eth_type == htons(ETH_TYPE_IPV6)) {
@@ -1746,7 +1746,7 @@ flow_hash_symmetric_l4(const struct flow *flow, uint32_t basis)
             ipv6_addr[i] = a[i] ^ b[i];
         }
         fields.ip_proto = flow->nw_proto;
-        if (fields.ip_proto == IPPROTO_TCP || fields.ip_proto == IPPROTO_SCTP) {
+        if (fields.ip_proto == IPPROTO_TCP || fields.ip_proto == IPPROTO_UDP || fields.ip_proto == IPPROTO_SCTP) {
             fields.tp_port = flow->tp_src ^ flow->tp_dst;
         }
     }
